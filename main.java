@@ -2,22 +2,37 @@ import java.util.ArrayList;
 
 public class Main {
     
-    public static void main(String[] args) {
-        
-        int bitSize = 9;
-        int maxKeyValue = (int) Math.pow(2, bitSize);
-        
-        // Number of cols in a finger table
-        int numCols = 3;
+    private static final int bitSize = 9;
+    private static final int maxKeyValue = (int) Math.pow(2, bitSize);
+    
+    // Number of cols in a finger table
+    private static final int numCols = 3;
+    
+    
+
+	public static void main(String[] args) {
         
         int[] nodes = {0, 85, 133, 182, 210, 245, 279, 324, 395, 451};
         
         printNodes(nodes);
         
-        // Initialise all finger tables
-        ArrayList<int[][]> fingerTables = new ArrayList<int[][]>();
+        // Initialize all finger tables
+        ArrayList<int[][]> fingerTables = generateFingerTables(nodes);
         
-        // Loop to calculate finger table values
+        printFingerTables(fingerTables, nodes);
+
+        
+        
+      
+        
+        // NEXT: Searching for keys..
+    }
+    
+    public static ArrayList<int[][]> generateFingerTables(int[] nodes) {
+    	
+    	ArrayList<int[][]> fingerTables = new ArrayList<int[][]>();
+    	
+    	// Loop to calculate finger table values
         for(int i = 0; i < nodes.length; i++) {
         	
         	int[][] fingerTable = new int[bitSize][numCols];
@@ -65,17 +80,8 @@ public class Main {
         	
         	fingerTables.add(i, fingerTable);
         }
-        
-        printFingerTables(fingerTables, nodes, bitSize, numCols);
-        
-        
-      
-        
-        // NEXT: Searching for keys..
-    }
-    
-    public ArrayList<int[][]> generateFingerTables() {
-    	return null;
+       
+        return fingerTables;
     }
     
     
@@ -91,7 +97,7 @@ public class Main {
         }
     }
     
-    public static void printFingerTables(ArrayList<int[][]> fingerTables, int[] nodes, int bitSize, int numCols) {
+    public static void printFingerTables(ArrayList<int[][]> fingerTables, int[] nodes) {
     	
         for(int i = 0; i < fingerTables.size(); i++) {
         	
