@@ -35,52 +35,40 @@ public class Main {
         			
         		}
         		
-        		// Code for finding the link node value
-        		int linkNode = 0;
-        		int x = 0;
+        		// Finding the link node value
+        		double linkNode = Double.NaN;
         		
         		int currNode = i;
         		
-        		while(modTargetValue > nodes[currNode + x]) {
+        		while(Double.isNaN(linkNode)) {
         			
-        			if(currNode + x == nodes.length - 1) {
-        				break;
-        			}
+        			System.out.println("Current Node Value: " + currNode + " | " + nodes[currNode]);
+        			System.out.println("Current Target Value: " + targetValue);
+        			System.out.println("");
         			
-        			if(currNode == nodes.length - 1) {
+        			if(targetValue <= nodes[currNode]) {
+        				linkNode = nodes[currNode];
         				
-        				if(x != 0) {
-        					if(modTargetValue <= nodes[x]) {
-                				linkNode = nodes[x];
-                				
-            				} else {
-            					x++;
-            				}
-        					
+        			} else if(currNode == nodes.length - 1) {
+        				
+        				if(targetValue >= maxKeyValue) {
+        					targetValue = modTargetValue;
+            				currNode = 0;
+            				
         				} else {
-        					if(modTargetValue <= nodes[i + x]) {
-                				linkNode = nodes[i + x];
-                				
-        					} else if(modTargetValue <= nodes[x])  {
-        						linkNode = nodes[x];
-        						
-        					} else {
-        						x++;
-        					}
+        					linkNode = nodes[0];
         				}
-        			
-        			} else if(modTargetValue <= nodes[i + x]) {
-        				linkNode = nodes[i + x];
+        				
         				
         			} else {
-        				x++;
+        				currNode++;
         			}
         		}
         		
         		// Set values for current row in finger tables
         		fingerTable[j][0] = j;
         		fingerTable[j][1] = targetValue;
-        		fingerTable[j][2] = linkNode;
+        		fingerTable[j][2] = (int) linkNode;
         		
         	}
         	
@@ -88,10 +76,11 @@ public class Main {
         }
         
         
+        
         // Loop for printing out finger tables
         for(int i = 0; i < fingerTables.size(); i++) {
         	
-        	System.out.println("Finger Table for Node " + nodes[i]);
+        	System.out.println("\n\nFinger Table for Node " + nodes[i]);
         	System.out.println("\ni  Target  Link");
         	
         	for(int j = 0; j < bitSize; j++) {
@@ -105,7 +94,6 @@ public class Main {
         		
         		
         	}
-        	System.out.println("\n\n");
     		
         }
       
