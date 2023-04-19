@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Scanner; 
 
 public class Main {
     
@@ -14,20 +15,58 @@ public class Main {
         
         int[] nodes = {0, 85, 133, 182, 210, 245, 279, 324, 395, 451};
         
-        printNodes(nodes);
-        
         // Initialize all finger tables
         ArrayList<int[][]> fingerTables = generateFingerTables(nodes);
-        
-        printFingerTables(fingerTables, nodes);
 
         
-        
-      
+        Scanner scanner = new Scanner(System.in);
+		
+        System.out.println("______________________\n");
+		System.out.println("Peer-to-Peer Networks COSC1235");
+		System.out.println("Semester 1 2023 - Progressive Test 2");
+		
+		System.out.println("\nChord DHT P2P Network");
+		System.out.println("Please select option 2 for demonstration of finding a key in the network.");
+		
+		while(true) {
+			System.out.println("\n______________________\n");
+			System.out.println("\n---- Menu ----");
+			System.out.println("[1] View team members");
+			System.out.println("[2] Run demonstration");
+			System.out.println("[3] Show nodes");
+			System.out.println("[4] Show generated finger tables");
+			
+			System.out.println("\nEnter option...");
+			String input = scanner.nextLine();
+			
+			System.out.println("\n______________________\n");
+			
+			if(input.equals("1")) {
+				System.out.println("Team Members:");
+				System.out.println("Nathan Boc s3717205");
+				System.out.println("Sifan Gao s3753605");
+				System.out.println("Josiah Webster s3785546");
+				System.out.println("Connor Forster s3781475");
+				
+			} else if(input.equals("2")) {
+				System.out.println("option 2");
+				
+			} else if(input.equals("3")) {
+				System.out.println("Nodes in the network:");
+				printNodes(nodes);
+				
+			} else if(input.equals("4")) {
+				printFingerTables(fingerTables, nodes);
+				
+			} else {
+				System.out.println("Invalid input. Please try again.");
+			}
+			
+		}
         
         // NEXT: Searching for keys..
     }
-    
+
     public static ArrayList<int[][]> generateFingerTables(int[] nodes) {
     	
     	ArrayList<int[][]> fingerTables = new ArrayList<int[][]>();
@@ -84,7 +123,6 @@ public class Main {
         return fingerTables;
     }
     
-    
     public static void printNodes(int[] nodes) {
     	
     	// Print nodes to console
@@ -125,7 +163,9 @@ public class Main {
         		System.out.println("");
         	}
         	
-        	System.out.println("\n____________________");
+        	if(i != fingerTables.size() - 1) {
+        		System.out.println("\n____________________");
+        	}
         }
     	
     }
