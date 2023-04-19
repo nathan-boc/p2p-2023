@@ -24,37 +24,28 @@ public class Main {
         	
         	for(int j = 0; j < bitSize; j++) {
         		
-        		
         		int targetValue = (int) Math.pow(2,j) + nodes[i];
-        		
-        		int modTargetValue = targetValue;
-        		
-        		// Finds the remainder of the max key value
-        		if(targetValue >= maxKeyValue) {
-        			modTargetValue = targetValue % maxKeyValue;
-        			
-        		}
         		
         		// Finding the link node value
         		double linkNode = Double.NaN;
-        		
         		int currNode = i;
         		
         		while(Double.isNaN(linkNode)) {
         			
-        			System.out.println("Current Node Value: " + currNode + " | " + nodes[currNode]);
-        			System.out.println("Current Target Value: " + targetValue);
-        			System.out.println("");
-        			
+        			// Check if current node holds the target key value 
         			if(targetValue <= nodes[currNode]) {
         				linkNode = nodes[currNode];
         				
+        			// Checks if on the final node
         			} else if(currNode == nodes.length - 1) {
         				
+        				// Mod the target value if it exceeds maxKeyValue
         				if(targetValue >= maxKeyValue) {
-        					targetValue = modTargetValue;
+        					targetValue = targetValue % maxKeyValue;
             				currNode = 0;
-            				
+            			
+            			// Link node is the first node only if currently on the final node and
+            			// target is not over the max key value
         				} else {
         					linkNode = nodes[0];
         				}
@@ -75,27 +66,9 @@ public class Main {
         	fingerTables.add(i, fingerTable);
         }
         
+        printFingerTables(fingerTables, nodes, bitSize, numCols);
         
         
-        // Loop for printing out finger tables
-        for(int i = 0; i < fingerTables.size(); i++) {
-        	
-        	System.out.println("\n\nFinger Table for Node " + nodes[i]);
-        	System.out.println("\ni  Target  Link");
-        	
-        	for(int j = 0; j < bitSize; j++) {
-        		
-        		for(int k = 0; k < numCols; k++) {
-        			System.out.print(fingerTables.get(i)[j][k] + " | ");
-        		}
-        		
-        		System.out.println("");
-        		
-        		
-        		
-        	}
-    		
-        }
       
         
         // NEXT: Searching for keys..
@@ -116,5 +89,38 @@ public class Main {
                 System.out.print(nodes[i] + ", ");
             }
         }
+    }
+    
+    public static void printFingerTables(ArrayList<int[][]> fingerTables, int[] nodes, int bitSize, int numCols) {
+    	
+        for(int i = 0; i < fingerTables.size(); i++) {
+        	
+        	System.out.println("\n\nFinger Table for Node " + nodes[i]);
+        	System.out.println("\n  i  Target  Link");
+        	System.out.println("-----------------");
+        	
+        	for(int j = 0; j < bitSize; j++) {
+        		
+        		System.out.print("| ");
+        		
+        		for(int k = 0; k < numCols; k++) {
+        			
+        			int cellSpaces = 0;
+        			
+        			if(k != 0) {
+        				cellSpaces = 3 - String.valueOf(fingerTables.get(i)[j][k]).length();
+        			}
+        			
+        			String padding = " ".repeat(cellSpaces);
+        			
+        			System.out.print(padding + fingerTables.get(i)[j][k] + " | ");
+        		}
+        		
+        		System.out.println("");
+        	}
+        	
+        	System.out.println("\n____________________");
+        }
+    	
     }
 }
